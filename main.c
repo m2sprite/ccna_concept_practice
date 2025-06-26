@@ -3,10 +3,29 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/socket.h>
-
-typedef uint8_t u8;
+// TODO(m2sprite|2025-06-26 16:29:33):
+//
+// WrapIntoSegment();
+// WrapIntoPacket();
+// WrapIntoFrame();
+//
+// TODO(m2sprite|2025-06-23 18:10:56): Calculate checksum
+// TODO(m2sprite|2025-06-23 18:37:21): Get Socket to stream in info
+typedef int8_t  s8;
 typedef int16_t s16;
+typedef int32_t s32;
+typedef int64_t s64;
+
+typedef uint8_t  u8;
 typedef uint16_t u16;
+typedef uint32_t u32;
+typedef uint64_t u64;
+
+typedef float f32;
+typedef double f64;
+
+#define ArrayCount(x) sizeof(x)/sizeof((x)[0])
+
 #define SIXTY_FOUR_K 65536
 
 enum ip_protocol_e {
@@ -166,8 +185,6 @@ typedef struct {
   u8 IpBuffer[4];
 } ipv4_t;
 
-typedef uint32_t u32;
-#define ArrayCount(x) sizeof(x)/sizeof((x)[0])
 
 ipv4_t BufferOffsetToIpV4( u8 *BufferOffset )
 {
@@ -197,7 +214,6 @@ u32 BigtoLittleU32( u8 *BufferOffset )
 }
 
 
-// TODO(m2sprite|2025-06-23 18:10:56): Calculate checksum
 
 void ParseTcp( u8 *Buffer, u32 BufferSize )
 {
@@ -317,7 +333,6 @@ void ParseIp( u8 *Buffer, u32 BufferSize )
     {
       printf(" Use IHL To parse options and then get data \n");
     }
-
 
     if( Protocol == PROTOCOL_TCP )
     {
